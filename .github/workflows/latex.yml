@@ -18,8 +18,10 @@ jobs:
             main-frn.tex
             main.tex
             
-      - name: Upload document
-        uses: actions/upload-artifact@v2
+      - name: Upload to Netlify     
+        uses: MrFlynn/upload-to-netlify-action@v2
         with:
-          name: PDF
-          path: src/main.pdf
+          source-file: "src/main.pdf"
+          destination-path: "/writeup.pdf"
+          site-name: large-project
+          netlify-token: ${{ secrets.NETLIFY_TOKEN }}
