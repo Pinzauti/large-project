@@ -1,9 +1,9 @@
 cff-version: 1.2.0
-message: "If you want to use this template, please cite it as below."
+message: "If you want to use any content of this writeup, please cite it as below."
 authors:
 - family-names: "Pinzauti"
   given-names: "Francesco"
-title: "LaTeX thesis template"
+title: "Simulation of an Heisenberg model Hamiltonian for a three-particle system on IBM Quantum’s 7-qubit Jakarta system"
 version: 1.0.0
-date-released: 2022-03-12
-url: "https://github.com/Pinzauti/LaTeX-thesis-template"
+date-released: 2022-07-31
+url: "https://github.com/Pinzauti/large-project"
