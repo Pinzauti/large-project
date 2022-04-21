@@ -1,4 +1,81 @@
 \section{Quantum bits}
-\subsection{Quantum register}
-\subsection{Entanglement}
+The definition of qubit (quantum bit) immediately follows from \hyperref[postulate:1]{postulate 1}:
+\begin{defn}
+A \emph{qubit} is a physical system $Q$ whose Hilbert space $\mathcal{H}_Q$ has dimension $\dim\mathcal{H}_Q = 2$.
+\end{defn}
+Because of \hyperref[postulate:1]{postulate 1} and according to the definition of vector space we see that every linear combination of a state vector
+\begin{equation}\label{eq:linear-combination}
+  \ket{\psi} = a \ket{\alpha} + b \ket{\beta} \quad \ket{\alpha},\ket{\beta} \in \mathcal{H}_\psi \quad a,b \in \mathbb{C} \quad \abs*{a}^2 + \abs*{b}^2 = 1
+\end{equation}
+is still part of the state space and it still describes the physics of the system. (There is only a constraint: the state has to be normalized according to \eqref{eq:normalization}, such a rescaling is possible and will be assumed hereafter.) 
 
+
+Here lies the main difference between bits and qubits: whereas in classical computation only $0$ and $1$ states are allowed, in quantum computation also superposition states are perfectly acceptable.\graffito{Main difference between bits and qubits.} 
+What does a superposition state physically mean? If we measure for example \eqref{eq:linear-combination} the probability of being in the state $\ket{\alpha}$ is  $\abs*{a}^2$ and the probability of being in the state $\ket{\beta}$ is $\abs*{b}^2$.
+
+According (again) to the \hyperref[postulate:1]{first postulate} the state of a qubit is a vector in a two-dimensional Hilbert space. Let us define its basis:
+\begin{defn}\label{def:computational-basis}
+The orthonormal basis of the two-dimensional Hilbert space describing a qubit is called \emph{computational basis} and it's composed of the states $\ket{0}$ and $\ket{1}$ known as \emph{computational basis states}.
+\end{defn}
+How a qubit is physically made?
+It can be a $1/2$ spin particle, an atomic system whose dynamics is described by two (non-degenerate) energy levels and so on.
+Whatever we choose to be our physical realization of the qubit we have a Hermitian operator associated with the observable chosen. The computational basis then will be composed by the eigenstates of the Hermitian operator associated with the observable\footnote{To every Hermitian operator $\Omega$ defined on a space $\mathcal{H}$ there exist (at least) a basis of the space $\mathcal{H}$ consisting of the orthonormal eigenvectors of the operator \cite[36]{Shankar}.}, those state (whatever the operator is) will be labelled as $\{\ket{0},\ket{1}\}$ according to \hyperref[def:computational-basis]{definition 2}.
+
+
+Let us use, for example, a $1/2$ spin particle.   We know that the Hermitian operator associated with spin is $S_z$ or $\hat{\sigma}_z = \frac{2}{\hbar} S_z$ that fits our scope because it has two eigenstates and two non-degenerate eigenvalues: 
+\graffito{An example of how a qubit can be physically implemented.}
+
+\begin{equation}\label{eq:spin-particle}
+\begin{split}
+    \hat{\sigma}_z \ket{\chi_+} &= \ket{\chi_+}  \\
+    \hat{\sigma}_z \ket{\chi_-} &= -\ket{\chi_-}\,.
+\end{split}
+\end{equation}
+These eigenstates (i.e. the spinors) span a two-dimensional Hilbert space and can be chosen as the computational basis.
+
+\subsection{Quantum register}
+The definition of quantum register, quantum analogue of the classical register, immediately follows from \hyperref[postulate:4]{postulate 4}:
+\begin{defn}
+A $n$ size \emph{quantum register} is a system QR with $\dim\mathcal{H}_{QR} = 2^n$.
+\end{defn}
+In other words, a quantum register is a system comprising multiple qubits.
+
+
+The simplest case is a system $N=2$ with two qubits $Q_1$ and $Q_2$. If we define the basis of $\mathcal{H}_{Q_1}$ and $\mathcal{H}_{Q_2}$ as $\{\ket{0}_1, \ket{1}_1\}$ and $\{\ket{0}_2, \ket{1}_2\}$ one possible basis of $H_{QR}$ is \graffito{Quantum register with two qubits.}
+\begin{equation}\label{eq:quantum-register-basis}
+    \{\ket{0}_1 \otimes \ket{0}_2, \ket{1}_1 \otimes \ket{0}_2, \ket{0}_1 \otimes \ket{1}_2, \ket{1}_1 \otimes \ket{1}_2\}\
+\end{equation}
+and as expected we have $\dim\mathcal{H}_{QR} = 4$.
+\subsection{Entanglement}
+Consider two arbitrary quantum systems $Q_1$ and $Q_2$, with respective Hilbert spaces $\mathcal{H}_{Q_1}$ and $\mathcal{H}_{Q_2}.$ The Hilbert space of the composite system is the tensor product: 
+\begin{equation*}
+\mathcal{H}_{Q_1} \otimes \mathcal{H}_{Q_2}\,,
+\end{equation*}
+if the first system is in state $\ket{\psi}_{Q_1}$ and the second in state $\ket{\psi}_{Q_2}$ the state of the composite system is
+\begin{equation*}
+    \ket{\psi}_{Q_1} \otimes \ket{\psi}_{Q_2}\,.
+\end{equation*}
+States of the composite system that can be represented in this form are called \emph{separable states} while
+\begin{defn}
+A composite system such that $\ket{QR} \neq \otimes_i \ket{Q_i}$ is an \emph{entangled state}.
+\end{defn}
+
+If we consider two qubits:
+\graffito{An example of a separable state.}
+\begin{align*}
+    &\ket{Q_1} = a \ket{0}_1 + b \ket{1}_1 \quad a, b \in \mathbb{C}, \quad \abs*{a}^2 + \abs*{b}^2 = 1 \\
+    &\ket{Q_2} = c\ket{0}_2 + d\ket{1}_2 \quad c,d \in \mathbb{C}, \quad \abs*{c}^2 + \abs*{d}^2 = 1
+\end{align*}
+the overall state of the system is:
+\begin{multline*}
+    \ket{QR} = \ket{Q_1} \otimes \ket{Q_2} = ac \ket{0}_1 \otimes \ket{0}_2 \\ +  bc  \ket{1}_1 \otimes \ket{0}_2 + 
+    ad \ket{0}_1 \otimes \ket{1}_2 + bd \ket{1}_1 \otimes \ket{1}_2
+\end{multline*}
+that is a separable state.
+
+If instead we have:
+\graffito{An example of an entangled state.}
+\begin{equation*}
+    \ket{\Phi^+} = \frac{\ket{0}_1 \otimes \ket{0}_2 + \ket{1}_1 \otimes \ket{1}_2}{\sqrt{2}}
+\end{equation*}
+we immediately see that this is an entangled state\footnote{It is one of the Bell states, four specific maximally entangled quantum states of two qubits.} as there is no way of writing it as $\ket{Q_1} \otimes \ket{Q_2}$. 
