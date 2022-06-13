@@ -1,4 +1,15 @@
-\chapter{Open Science Prize}
+\chapter{Open Science Prize}\label{chap:3}
+\epigraph{ Provando e riprovando.}{Accademia del Cimento, Florence, 1675.}
+Here we start explaining the actual competition. First of all, what we have to do it is simply simulate an Hamiltonian as explained in chapter~\ref{chap:2}, nothing more. The Hamiltonian will be presented shortly in \ref{sec:xxx}. There are however some restriction:
+\begin{enumerate}
+    \item Trotterization must be used in the decomposition and the number of steps should be greater or equal to four.
+    \item The simulation will be tested and executed on a specific device, Jakarta, that we will describe in \ref{sec:jakarta}
+\end{enumerate}
+
+Note that the access to the real device is tied to a long (very long!) queue and time of execution itself is quite long too. That's why IBM provide backend simulators, i.e. classical computer that simulates specifically quantum backends.
+Of course we will use \mintinline[breaklines]{python}{sim_noisy_jakarta = QasmSimulator.from_backend(provider.get_backend('ibmq_jakarta'))} which is the simulator of Jakarta on a classical device. Of course simulations are not as near as precise as executions on the real device, however they can guide you towards the right direction, saving execution on the real device for more fine-grained refinements.
+
+There are even backends simulators without noise, however they were not used as, after some testing, they seemed completely out of touch with the results of the real device.
 \input{Chapters/Chapter3/Section1}
 \input{Chapters/Chapter3/Section2}
 \input{Chapters/Chapter3/Section3}

@@ -1,3 +1,115 @@
-\section{Trotterization}
+\section{Trotterization}\label{sec:trotterization}
+Each physical system is described by its Hamiltonian.
+As discussed in chapter~\ref{chap:1} we know that the evolution of a quantum system is governed by the Schrödinger equation~\cite{Shankar}:
+\begin{equation}\label{eq:schrodinger}
+i \frac{d}{dt}  \ket{\psi(t)} = H \ket{\psi(t)}
+\end{equation}
+Our goal is to find the solution to this equation in a reasonable time and with reasonable accuracy.
+
+When dealing with real particles in space this reduces to:\footnote{What we are doing here is just rewriting the Hamiltonian H as the sum of kinetic and potential energy, i.e. $H = T + V$ and projecting the equation on the x basis, using the conventional representation $\braket{x|\psi} = \psi(x)$. This results in $V = V(x)$ and $T = - \frac{1}{2m}\frac{\partial^2}{\partial x^2}$. A complete explanation of the projection is outside the scope of this work.}
+\begin{equation}
+i \frac{\partial}{\partial t} \psi(x) = \biggl[ - \frac{1}{2m}\frac{\partial^2}{\partial x^2} + V(x) \biggr]\psi(x)
+\end{equation}
+For one qubit evolving according to this equation a system of two differential equations must be solved which results in $2^n$ equations for $n$ qubits. This is incredibility hard to compute on a classical machine, that is why quantum computers are so crucial in this field.
+
+We know the solution of equation~\ref{eq:schrodinger} for a time independent H:\footnote{We are going to deal only and exclusively with time-independent Hamiltonians.}
+\begin{equation}
+\ket{\psi(t)} = e^{-iHt} \ket{\psi(0)}
+\end{equation}
+$H$ is usually extremely difficult to exponentiate and in order to be executed on a quantum computer the exponential should be rewritten in terms of its native gates\footnote{This is not entirely true, $e^{-iHt}$ should be rewritten in terms of quantum computation gates, but as long as our machine has a set of universal quantum gates implemented any quantum gate can be simulated, even if not native.}.
+
+But, what does it mean to take $e$ to the power of an operator $H$? 
+
+Working with the the matrix representation of $H$, the time evolution $U_H(t) = e^{-iHt}$ can be numerically and algebraically evaluated using a taylor series expansion ($e^x = 1 + x + x^2/2! + x^3/3! + ... $) . This is often where computers step in. Although, single Pauli operators (e.g. $H=\sigma_x$) have a nice algebraic result. On a computer, many different software packages have methods for computing $e^A$ where $A$ is a matrix (e.g. scipy or opflow).
+
+We do need to be careful when the matrix that is being exponentiated is a sum of operators that do not commute:
+\begin{equation}
+[A,B] = AB - BA \neq 0
+\end{equation}
+ For example, if $H = \sigma_x + \sigma_z$, we need to take care in working with $e^{it(\sigma_x + \sigma_z)}$ since the Pauli operatos $\sigma_x$ and $\sigma_z$ do not commute $[\sigma_x, \sigma_z] = \sigma_x \sigma_z - \sigma_z \sigma_x = -2i\sigma_y \neq0$.
+ 
+ If we want to apply $e^{it(\sigma_x + \sigma_z)}$ on a quantum computer, however, we will want to decompose the sum in the exponential into a product of exponentials. Each product can then be implemented on the quantum computer as a single or two-qubit gate. 
+ 
+ Continuing the example, $\sigma_x$ and $\sigma_z$ do not commute ($[\sigma_x, \sigma_z] \neq 0$), so we cannot simply decompose the exponential into a product of exponentials $e^{-it(\sigma_x + \sigma_z)} \neq e^{-it\sigma_x}e^{-it\sigma_z}$. This is where approximation methods come in such as Trotterization (more on that in the next section).
+
 \subsection{Time evolution}
+
+
+The problem of Hamiltonian simulation is thus stated as follows: Given a Hamiltonian 
+$H$ and an evolution time  $t$, output a sequence of computational gates that implement
+\begin{equation}\label{eq:u}
+U = e^{-iHt}
+\end{equation}.
+
+This problem is meaningful because simulating the dynamics of a quantum system is an essential problem in quantum physics and quantum chemistry. As we have seen the Hamiltonian simulation problem can be solved with an exponential number of gates on a classical computer and now wee se that it requires only a polynomial number on a quantum computer, which is a huge improvement.
+
 \subsection{Lie product formula}
+In order to decompose our time evolution operator $U$ into a sequence of gates, Lie product formula plays a crucial role.
+
+This is because in most physical systems, the Hamiltonian
+can be written as a sum over many local interactions. Specifically, for a system of $n$
+particles,
+\begin{equation}
+H=\sum_{k=1}^{L} H_{k},
+\end{equation}
+where each $H_{k}$ acts on at most a constant $c$ number of systems, and $L$ is a polynomial in $n$.
+
+We can then rewrite the exponent of~\ref{eq:u}, which we want to decompose as a sequence of one and two-qubit gates, and then apply:
+
+\begin{theorem}Let $A$ and $B$ be Hermitian operators. Then for any real $t$
+\begin{equation}
+\lim _{n \rightarrow \infty}\left(e^{i A t / n} e^{i B t / n}\right)^{n}=e^{i(A+B) t}
+\end{equation}\cite{NielsenChuang}
+\end{theorem}
+Note that this is true even if $A$ and $B$ do not commute.
+\begin{proof}
+By definition,
+$$
+e^{i A t / n}=I+\frac{1}{n} i A t+O\left(\frac{1}{n^{2}}\right)
+$$
+and thus
+$$
+e^{i A t / n} e^{i B t / n}=I+\frac{1}{n} i(A+B) t+O\left(\frac{1}{n^{2}}\right)
+$$
+Taking products of these gives us
+$$
+\left(e^{i A t / n} e^{i B t / n}\right)^{n}=I+\sum_{k=1}^{n}\left(\begin{array}{c}
+n \\
+k
+\end{array}\right) \frac{1}{n^{k}}[i(A+B) t]^{k}+O\left(\frac{1}{n}\right)
+$$
+and since $\left(\begin{array}{c}n \\ k\end{array}\right) \frac{1}{n^{k}}=\left(1+O\left(\frac{1}{n}\right)\right) / k !$, this gives
+$$
+\lim _{n \rightarrow \infty}\left(e^{i A t / n} e^{i B t / n}\right)^{n}=\lim _{n \rightarrow \infty} \sum_{k=0}^{n} \frac{(i(A+B) t)^{k}}{k !}\left(1+O\left(\frac{1}{n}\right)\right)+O\left(\frac{1}{n}\right)=e^{i(A+B) t}
+$$.
+\end{proof}
+
+
+Since the limit of this formula is infinite, we have to truncate the series when implementing this formula on a quantum computer. The truncation introduces error in the simulation that we can bound by a maximum simulation error $\epsilon$.
+such that 
+\begin{equation*}
+|| e^{-iHT} - U || \leq \epsilon
+\end{equation*}.
+
+This truncation is known as \emph{Trotterization} and it's the core of the simulation of non-commuting Hamiltonians on quantum computers.
+
+\paragraph{The algorithm}
+Let us summarize the complete algorithm for quantum simulation~\cite{NielsenChuang}:
+\begin{description}
+    \item[Inputs] The inputs of the quantum computer are:
+     \begin{enumerate}
+   \item A Hamiltonian $H=\sum_{k} H_{k}$ acting on an $N$-dimensional system, where each $H_{k}$ acts on a small subsystem of size independent of $N$.
+   \item An initial state $\left|\psi_{0}\right\rangle$, of the system at $t=0$.
+   \item A positive, non-zero accuracy $\delta$.
+   \item A time $t_{f}$ at which the evolved state is desired.
+ \end{enumerate}
+    \item[Outputs] A state $\left|\tilde{\psi}\left(t_{f}\right)\right\rangle$ such that $\left|\left\langle\tilde{\psi}\left(t_{f}\right)\left|e^{-i H t_{f}}\right| \psi_{0}\right\rangle\right|^{2} \geq 1-\delta$.
+    \item[Runtime] $O($poly$(1 / \delta))$ operations.
+    \item[Procedure] Choose a representation such that the state $|\tilde{\psi}\rangle$ of $n=\operatorname{poly}(\log N)$ qubits approximates the system and the operators $e^{-i H_{k} \Delta t}$ have efficient quantum circuit approximations. Select an approximation method and $\Delta t$ such that the expected error is acceptable (and $j \Delta t=t_{f}$ for an integer $j$ ), construct the corresponding quantum circuit $U_{\Delta t}$ for the iterative step, and do:
+    \begin{enumerate}
+   \item $\left|\tilde{\psi}_{0}\right\rangle \leftarrow\left|\psi_{0}\right\rangle ; j=0 \quad$ initialize state
+   \item $\rightarrow\left|\tilde{\psi}_{j+1}\right\rangle=U_{\Delta t}\left|\tilde{\psi}_{j}\right\rangle \quad$ iterative update
+   \item $\rightarrow j=j+1 ;$ goto 2 until $j \Delta t \geq t_{f} \quad$ loop
+   \item  $\rightarrow\left|\tilde{\psi}\left(t_{f}\right)\right\rangle=\left|\tilde{\psi}_{j}\right\rangle \quad$ final result
+ \end{enumerate}
+ \end{description}

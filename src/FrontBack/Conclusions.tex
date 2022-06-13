@@ -1,3 +1,16 @@
 \addtocontents{toc}{\protect\vspace{\beforebibskip}}
 \chapter{Conclusions}
 
+This was an attempt to summarize as much as possible a short introduction to the field of quantum computation, an overview to the actual state of the art, at the time of writing, of quantum simulation and at the end the explanation of the solution provided for the Open Science Prize competition.
+Long story short, results are not extremely exciting and/or revolutionary. Many aspects of this solution could be improved:
+
+\begin{description}
+\item[Noise suppression: ]a main point which was missed mostly due to time limitation and lack of knowledge in this specific area. Even if noise suppression it is not and it can't be a valid replacement of a good decomposition of the time operator, it can definitely help.
+\item[Errors in different gates: ] exploiting the different errors in the gates in the decomposition was another big miss, but everything tried did not seems to give an improvement.
+\item[More advanced decompositions: ] exploiting specific decomposition tied to the tipe of qubit used in Jakarta it is also something worth exploiting, even if it does not seems to be too much literature about the subject.
+\item[Ancilla qubits: ] ancilla qubits were not exploited, which lead to 3 qubit being de facto not used during all the computation, the involvement of those qubits could have played a major role, especially in noise suppression.
+\item[More experiments: ] a huge drawback was played by the long queue in accessing the device, resulting in a limited tuning of the parameters based on experimental results, this variable was obviously not under my control.
+\end{description}
+
+In the end, the field of quantum computation and quantum simulation is an exciting field which is evolving rapidly and it is definitely very promising. This was a first and a small attempt to familiarizing with it in a real world scenario and with an open challenge. Even if results are not even near to the actual state of the art, the amount of knowledge acquired during this long journey was definitely worth the effort. 
+

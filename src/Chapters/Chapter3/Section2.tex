@@ -1,1 +1,14 @@
-\section{Qiskit Pulse}
+\section{Qiskit Pulse and native gates}
+Something that we have still not explained is how to implement our decomposition in the machine.
+First of all, our code is written in Qiskit, a Python SDK, that we will describe better in appendix~\ref{ch:code}.
+However tha challenge give us two possibilities:
+\begin{enumerate}
+\item Using native gates.
+\item Using Qiskit Pulse.
+\end{enumerate}
+
+In the first case, we simply call the native gates with the predefined commands\footnote{Of course we can change parameters, phase and so on.} and so we are forced to limit our decomposition to the available gates.
+
+Qiskit Pulse on the other ands offers low-level control of a device's qubits. Pulse allows users to program the physical interactions happening on the superconducting chip. This can be a powerful tool for streamlining circuits, crafting new types of gates, getting higher fidelity readout, and more.
+
+We are going to use the first strategy, as it is the most straightforward to implement for a single person working on the project.

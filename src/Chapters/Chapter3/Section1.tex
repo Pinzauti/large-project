@@ -1,1 +1,81 @@
-\section{The XXX Model}
+\section{The XXX Model}\label{sec:xxx}
+
+The quantum Heisenberg model, developed by Werner Heisenberg, is a statistical mechanical model used in the study of critical points and phase transitions of magnetic systems, in which the spins of the magnetic systems are treated quantum mechanically. The model is based on the Hamiltonian:
+    \begin{equation}
+        H = -1/2 \sum_{j=1}^{N} (J_x \sigma_x^{j} \sigma_x^{j+1} + J_y \sigma_y^{j} \sigma_y^{j+1} + J_z \sigma_z^{j} \sigma_z^{j+1})
+     \end{equation}
+
+     where $J$ is the coupling constant. We will use a simplified version. This version of the general Heisenberg spin model is called $XXX$ because the same $J$ value multiplies each pair of Pauli operators.
+
+
+
+
+     \begin{equation}
+        H_{\text{Heis}} = \sum_{\langle ij \rangle}^{N} J \left(\sigma_x^{(i)}\sigma_x^{(j)} + \sigma_y^{(i)}\sigma_y^{(j)} + \sigma_z^{(i)}\sigma_z^{(j)}\right).
+     \end{equation}
+    
+    
+    $N$ is the number of spin-1/2 particles in model.The $i$ and $j$ superscripts label which qubit they act on. For example, $\sigma_x^{(1)}$ would be the $\sigma_x$ operator acting on only qubit 1 (which is the 2nd qubit since indexing starts at 0). The sum notation $\langle ij \rangle$ means the sum is over nearest neighbors (only qubits next to each other interact), and $J$ is the interaction strength, which we will set $J=1$.
+
+    
+
+    Of course $\sigma_x, \sigma_y, \sigma_z$ are the known pauli matrices: 
+
+\[
+    \sigma_x =
+    \begin{pmatrix}0&1\\1&0\end{pmatrix}
+    \]
+    \[
+    \sigma_y =
+    \begin{pmatrix}0&-i\\i&0\end{pmatrix} 
+    \]
+    \[
+    \sigma_z =
+    \begin{pmatrix}1&0\\0&-1\end{pmatrix} 
+    \]
+
+
+    We will work with the explicit case of $N=3$ with the 3 spins arranged in a line. Written out fully, the Hamiltonian is
+\begin{equation}
+\begin{split}
+H_{\text{Heis3}} &= \sigma_x^{(0)}\sigma_x^{(1)} + \sigma_x^{(1)}\sigma_x^{(2)} + \sigma_y^{(0)}\sigma_y^{(1)} \\
+&+ \sigma_y^{(1)}\sigma_y^{(2)} + \sigma_z^{(0)}\sigma_z^{(1)} + \sigma_z^{(1)}\sigma_z^{(2)}.
+\end{split}
+\end{equation}
+Now that we have a Hamiltonian ($H_{\text{Heis3}}$), we can use it to determine how the quantum system of 3 spin-1/2 particles changes in time.
+
+
+To compute the matrix representation of $H_{\text{Heis3}}$, we are actually missing some pieces namely the identity operator $I$ and the tensor product $\otimes$ symbol. They are both often left out in when writing a Hamiltonian, but they are implied to be there. 
+
+Writing out the full $H_{\text{Heis3}}$ including the identity operators and tensor product symbols we obtain: 
+
+\begin{equation}
+    \begin{split}
+H_{\text{Heis3}} &= \sigma_x^{(0)}\otimes\sigma_x^{(1)}\otimes I^{(2)} + I^{(0)} \otimes\sigma_x^{(1)}\otimes\sigma_x^{(2)} \\ &+ \sigma_y^{(0)}\otimes\sigma_y^{(1)}\otimes I^{(2)} + 
+I^{(0)} \otimes \sigma_y^{(1)}\otimes\sigma_y^{(2)} \\ &+ I^{(0)} \otimes\sigma_z^{(0)}\otimes\sigma_z^{(1)} + I^{(0)}\otimes\sigma_z^{(1)}\otimes\sigma_z^{(2)}.
+\end{split}
+\end{equation}
+
+
+Knowing the Hamiltonian, we can determine how quantum states of that system evolve in time by solving the Schrödinger equations
+\begin{equation}
+i\hbar \dfrac{d}{dt}|\psi(t)\rangle = H |\psi(t)\rangle
+\end{equation}
+
+For simplicity, let's set $\hbar = 1$. We know that the Hamiltonian $H_{\text{heis3}}$ does not change in time, so the solution to the Schrödinger equation is an exponential of the Hamiltonian operator
+
+\begin{align}
+U_{\text{Heis3}}(t) &= e^{-it H_\text{Heis3}} = \exp\left(-it H_\text{Heis3}\right) \\
+U_{\text{Heis3}}(t) &= \exp\left[-it \sum_{\langle ij \rangle}^{N=3} \left(\sigma_x^{(i)}\sigma_x^{(j)} + \sigma_y^{(i)}\sigma_y^{(j)} + \sigma_z^{(i)}\sigma_z^{(j)}\right) \right]
+\end{align}
+
+
+
+\begin{equation}
+    \begin{split}
+        U_{\text{Heis3}}(t) &= \exp\left[-it \left(\sigma_x^{(0)}\sigma_x^{(1)} + \sigma_x^{(1)}\sigma_x^{(2)} + \sigma_y^{(0)}\sigma_y^{(1)}  + \sigma_y^{(1)}\sigma_y^{(2)} + \sigma_z^{(0)}\sigma_z^{(1)} + \sigma_z^{(1)}\sigma_z^{(2)}\right) \right]
+    \end{split}
+\end{equation}
+Now that we have the time evolution operator $U_{\text{Heis3}}(t)$, we can simulate changes in a state of the system ($|\psi(t)\rangle$) over time $|\psi(t)\rangle = U_{\text{Heis3}}(t)|\psi(t=0)\rangle$. 
+
+Our goal will be to decompose $U_{\text{Heis3}}(t)$ into one and two-qubit gates executable in the Jakarta device.

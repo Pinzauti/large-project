@@ -1,0 +1,54 @@
+{
+    "latex-workshop.latex.tools": [
+        {
+          "name": "latexmk",
+          "command": "latexmk",
+          "args": [
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "--shell-escape",
+            "-pdf",
+            "%DOC%"
+          ]
+        },
+        {
+          "name": "pdflatex",
+          "command": "pdflatex",
+          "args": [
+            "--shell-escape",
+            "-synctex=1",
+            "-interaction=nonstopmode",
+            "-file-line-error",
+            "%DOC%"
+          ]
+        },
+        {
+          "name": "bibtex",
+          "command": "bibtex",
+          "args": [
+            "%DOCFILE%"
+          ],
+          "env": {}
+        }
+      ],
+      "cSpell.words": [
+        "CNOT",
+        "exponentials",
+        "exponentiate",
+        "exponentiated",
+        "Hamiltonians",
+        "Heis",
+        "Ising",
+        "opflow",
+        "PSPACE",
+        "Qiskit",
+        "qubit",
+        "scipy",
+        "scipy's",
+        "supercurrent",
+        "Transmon",
+        "Trotterization"
+      ],
+  
+  }
