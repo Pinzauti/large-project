@@ -22,7 +22,7 @@ But, what does it mean to take $e$ to the power of an operator $H$?
 
 Working with the the matrix representation of $H$, the time evolution $U_H(t) = e^{-iHt}$ can be numerically and algebraically evaluated using a taylor series expansion ($e^x = 1 + x + x^2/2! + x^3/3! + ... $) . This is often where computers step in. Although, single Pauli operators (e.g. $H=\sigma_x$) have a nice algebraic result. On a computer, many different software packages have methods for computing $e^A$ where $A$ is a matrix (e.g. scipy or opflow).
 
-We do need to be careful when the matrix that is being exponentiated is a sum of operators that do not commute:
+We do need to be careful when the matrix that is being exponentiated is a sum of operators that do not commute\cite{Shankar}:
 \begin{equation}
 [A,B] = AB - BA \neq 0
 \end{equation}
@@ -52,7 +52,7 @@ particles,
 \begin{equation}
 H=\sum_{k=1}^{L} H_{k},
 \end{equation}
-where each $H_{k}$ acts on at most a constant $c$ number of systems, and $L$ is a polynomial in $n$.
+where each $H_{k}$ acts on at most a constant $c$ number of systems, and $L$ is a polynomial in $n$.~\cite{Shankar}
 
 We can then rewrite the exponent of~\ref{eq:u}, which we want to decompose as a sequence of one and two-qubit gates, and then apply:
 
