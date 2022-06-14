@@ -31,10 +31,28 @@ $n$ is the number of Trotter steps, and as $n$ increases, the approximation shou
 
 But now we have a state of the art solution for decomposing \text{Heis2} into quantum gates~\cite{s1} \cite{s2} and this is shown in figure~\ref{fig:solution}, we can then implement this decomposition of \text{Heis2} into our decomposition of \text{Heis3}.
 
+In the decomposition of Heis2 we have:
+
+\begin{equation}
+    R X(\theta)=\exp \left(-i \frac{\theta}{2} X\right)=\left(\begin{array}{cc}
+        \cos \frac{\theta}{2} & -i \sin \frac{\theta}{2} \\
+        -i \sin \frac{\theta}{2} & \cos \frac{\theta}{2}
+        \end{array}\right)
+\end{equation}
+
+and 
+\begin{equation}
+    R Z(\lambda)=\exp \left(-i \frac{\lambda}{2} Z\right)=\left(\begin{array}{cc}
+        e^{-i \frac{\lambda}{2}} & 0 \\
+        0 & e^{i \frac{\lambda}{2}}
+        \end{array}\right).
+\end{equation}
+
+Those are not native gates but as already said they can be implemented as Jakarta has a universal set of quantum gates, and we can change the phase factor directly without the need of using Pulse.
 \begin{figure}[htb]
     \includegraphics[width = 1.2\textwidth]{circuit.png}
     \centering
-    \caption{Hamiltonian decomposition}
+    \caption{Heis2 decomposition}
     \label{fig:solution}
 \end{figure}
 
