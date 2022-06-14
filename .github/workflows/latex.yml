@@ -11,7 +11,6 @@ jobs:
         uses: xu-cheng/latex-action@v2
         with:
           extra_system_packages: "py-pygments"
-          pre_compile: "tlmgr update --self && tlmgr update --all"
           args: "-g -pdf -file-line-error -halt-on-error -interaction=nonstopmode -shell-escape"
           working_directory: src/
           root_file: |
