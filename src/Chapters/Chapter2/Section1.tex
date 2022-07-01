@@ -20,12 +20,13 @@ $H$ is usually extremely difficult to exponentiate and in order to be executed o
 
 But, what does it mean to take $e$ to the power of an operator $H$? 
 
-Working with the the matrix representation of $H$, the time evolution $U_H(t) = e^{-iHt}$ can be numerically and algebraically evaluated using a taylor series expansion ($e^x = 1 + x + x^2/2! + x^3/3! + ... $) . This is often where computers step in. Although, single Pauli operators (e.g. $H=\sigma_x$) have a nice algebraic result. On a computer, many different software packages have methods for computing $e^A$ where $A$ is a matrix (e.g. scipy or opflow).
+Working with the the matrix representation of $H$, the time evolution $U_H(t) = e^{-iHt}$ can be numerically and algebraically evaluated using a taylor series expansion ($e^x = 1 + x + x^2/2! + x^3/3! + ... $) . This is often where computers step in. On a computer, many different software packages have methods for computing $e^A$ where $A$ is a matrix (e.g. scipy or opflow).
 
-We do need to be careful when the matrix that is being exponentiated is a sum of operators that do not commute\cite{Shankar}:
+We do need to be careful when the matrix that is being exponentiated is a sum of operators that do not commute~\cite{Shankar}:
 \begin{equation}
 [A,B] = AB - BA \neq 0
 \end{equation}
+where we define $[.,.]$ as the commutation relation.
  For example, if $H = \sigma_x + \sigma_z$, we need to take care in working with $e^{it(\sigma_x + \sigma_z)}$ since the Pauli operatos $\sigma_x$ and $\sigma_z$ do not commute $[\sigma_x, \sigma_z] = \sigma_x \sigma_z - \sigma_z \sigma_x = -2i\sigma_y \neq0$.
  
  If we want to apply $e^{it(\sigma_x + \sigma_z)}$ on a quantum computer, however, we will want to decompose the sum in the exponential into a product of exponentials. Each product can then be implemented on the quantum computer as a single or two-qubit gate. 

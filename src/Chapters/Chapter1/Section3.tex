@@ -5,7 +5,7 @@ The basic blocks of a quantum circuit are quantum channels, single-qubit gates, 
 
 It follows from the \hyperref[postulate:2]{second postulate} that the dynamical evolution of the qubit due to the various elements of the circuit (gates and channels) is described by a unitary operator. Let us review some of its proprieties: 
 \begin{theorem}\label{theorem:1}
-There always exist an operator $\hat{H}$ such that $\hat{U}(t) = e^{-i\hat{H}t/\hbar}$ with $\hat{H} = \hat{H}^\dagger$ the Hamiltonian describing the system \cite[145]{Shankar}.
+There always exist an operator $\hat{H}$ such that $\hat{U}(t) = e^{-i\hat{H}t/\hbar}$ with $\hat{H} = \hat{H}^\dagger$ the Hamiltonian describing the system \cite{Shankar}.
 \end{theorem}
 
 Note that the the Hamiltonian being Hermitian guarantees the unitarity of our operator. After the evolution the norm of the input is conserved (which implies that the state is still valid according to \hyperref[postulate:1]{postulate 1}) since
@@ -254,12 +254,12 @@ A set of gates is said to be universal for quantum computation if any unitary op
 \end{defn}
 \begin{theorem}
 Single-qubit and CNOT gates can be used to implement an arbitrary unitary operation on $n$ qubits,
-and therefore are universal for quantum computation \cite[191]{NielsenChuang}.
+and therefore are universal for quantum computation \cite{NielsenChuang}.
 \end{theorem}
 
 \subsection{Measurement}
 \begin{theorem}
-Without loss of generality, any unterminated quantum wires (qubits which are not measured) at the end of a quantum circuit may be assumed to be measured \cite[187]{NielsenChuang}.
+Without loss of generality, any unterminated quantum wires (qubits which are not measured) at the end of a quantum circuit may be assumed to be measured \cite{NielsenChuang}.
 \end{theorem}
 \begin{figure}[htb]
 \centering

@@ -3,13 +3,41 @@
 Before introducing the state of the art let us discuss a bit the physical realization of qubits.
 \subsection{Different qubit implementations}
 
-At the time of writing there are currently two technologies for implementing qubits:
+At the time of writing there are currently two main technologies for implementing qubits in real life:
 \begin{itemize}
-\item Trapped ions.
-\item Superconducting circuit.
+    \item Trapped ions
+    \item Superconducting circuit
+    \end{itemize}
+however the experimental physics behind these two is quite clumsy. We are going to give a qualitative explanation of these techniques, while going a little bit more in depth in three toy implementation, namely:
+\begin{itemize}
+\item Harmonic oscillator
+\item Optical photon
+\item Cavity quantum electrodynamics
 \end{itemize}
 
-Let us focus on the type of qubit used in the machine we are going to use:
+Before explaining the various techniques for implementing a quantum computer let us state what it is necessary in order to have a valid machine able to do quantum computation:
+\begin{description}
+    \item[Robustly represent quantum information:] we have to implement qubits in a way that is robust to noise and errors, in systems which are not prone to decoherence.
+    \item[Perform a universal family of unitary transformation:] the system must be able to implement any unitary transformation, that as we have seen in chapter~\ref{chap:1} means being able to execute an universal set of quantum gates.
+    \item[Prepare a fiducial initial state:] we must be able to prepare an initial state, note that it is necessary to reproduce only one specific quantum state with high fidelity, since a unitary transform can turn it into any other desired input state.
+    \item[Measure the output result:] the system must be able to measure the output of the quantum circuit.
+\end{description}
+
+Let us start with:
+\paragraph{Harmonic oscillator}
+As anticipated this is mostly a toy example which is not feasible in real scenarios. 
+Think about an electromagnetic radiation trapped in a high $Q$\footnote{for more information: \url{https://en.wikipedia.org/wiki/Q_factor}.} cavity. This system is modelled by an harmonic oscillator. The Hamiltonian of the harmonic oscillator is:
+\begin{equation}
+    H=\frac{p^{2}}{2 m}+\frac{1}{2} m \omega^{2} x^{2}
+\end{equation}
+
+The set of discrete energy eigenstates of this Hamiltonina can be labeled as $|n\rangle$, where $n=0,1, \ldots, \infty$. We can use a finite subset of these states to represent qubits. These qubits will have lifetimes determined by physical parameters such as the cavity quality factor $Q$. Moreover, unitary transforms can be applied by simply allowing the system to evolve in time. 
+ 
+There are however several problem with this method, first of all it can be proved that the technique 
+\paragraph{Optical photon}
+\paragraph{Cavity quantum electrodynamics}
+
+In the end, the type of qubit used in the machine we are going to use:
 \paragraph{Superconducting qubits}
 To create a solid-state qubit, like any other kind of qubit, we need to isolate a two-level quantum system. To date, efforts to make solid-state qubits have focused on superconductors and semiconductors. While interesting results have been obtained with two semiconductor approaches, quantum dots and single-donor systems, the superconducting approach is currently the most advanced.
 
@@ -33,7 +61,7 @@ It is very interesting to see that accuracy seems to decrease with trotterizatio
 \begin{figure}[htb]
 \includegraphics[width = \textwidth]{state-of-the-art.png}
 \centering
-\caption{State of the art}
+\caption{State of the art~\cite{UQC}}
 \label{fig:state-of-the-art}
 \end{figure}
 
