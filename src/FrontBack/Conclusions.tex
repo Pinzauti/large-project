@@ -2,6 +2,7 @@
 \chapter{Conclusions}
 
 This was an attempt to summarize as much as possible a short introduction to the field of quantum computation, an overview to the actual state of the art, at the time of writing, of quantum simulation and at the end the explanation of the solution provided for the competition.
+
 Long story short, results are not extremely exciting and/or revolutionary. Many aspects of this solution could be improved:
 
 \begin{description}
@@ -9,8 +10,20 @@ Long story short, results are not extremely exciting and/or revolutionary. Many 
 \item[Errors in different gates: ] exploiting the different errors in the gates in the decomposition was another big miss, but everything tried did not seems to give an improvement.
 \item[More advanced decompositions: ] exploiting specific decomposition tied to the tipe of qubit used in Jakarta it is also something worth exploiting, even if it does not seems to be too much literature about the subject.
 \item[Ancilla qubits: ] ancilla qubits were not exploited, which lead to 3 qubit being de facto not used during all the computation, the involvement of those qubits could have played a major role, especially in noise suppression.
-\item[More experiments: ] a huge drawback was played by the long queue in accessing the device, resulting in a limited tuning of the parameters based on experimental results, this variable was obviously not under my control.
+\item[More experiments: ] a huge drawback was played by the long queue in accessing the device, resulting in a limited tuning of the parameters based on experimental results, this variable was obviously not under our control.
 \end{description}
 
-In the end, the field of quantum computation and quantum simulation is an exciting field which is evolving rapidly and it is definitely very promising. This was a first and a small attempt to familiarizing with it in a real world scenario and with an open challenge. Even if results are not even near to the actual state of the art, the amount of knowledge acquired during this long journey was definitely worth the effort. 
+However, based on the various experiments, we are able to conclude the following:
+
+\begin{description}
+    \item[We are still far from a logical qubit: ] A logical qubit is an abstract qubit that performs as specified in a quantum algorithm and has a long enough coherence time to be usable by quantum logic gates. At the time of writing, we are still dealing with a physical qubit, i.e. a device that behaves as a two-state quantum system, but that carry with itself all the limitations of its implementation. That means that when implementing an algorithm, unlike classical computation, we are not only dealing with the algorithm itself, but mostly with the hardware (i.e. the physical qubits) used to implement it. Error-correction is essential, and very low level control of the hardware is needed to produce something useful. Different implementations of the physical qubit play a crucial role in how a specific algorithm or a specific decomposition will perform, something which is not present in classical computation.
+    \item[Simulators are almost useless: ]the amount of randomness in the simulator of quantum backends on classical computer was astonishing, but it does make sense connecting experience with theory. Quantum computers are inherently more powerful for certain operations and simulating them in an accurate way is not possible. This however was and still is a big limitation, as access to new and reliable hardware is a bit of a challenge itself.
+    \item[Entanglement plays a crucial role: ] all the power of the state of the art decomposition of $H_{\text{Heis2}}$ comes from entanglement. Citing~\cite{NielsenChuang} 'entanglement is iron to the classical world's bronze age'. However, there is as yet no complete theory of it and it is not always clear how it can be used. Being able to exploit it in a decomposition however seems to drastically overcome any other type of decomposition.
+    \item[Machine learning does not seem a good fit: ] We tried (mostly adapted solution found online) machine learning approach to the decomposition, paired with a noisy simulator, but they didn't seems to work, at all. It could have been a fault of implementation, however this seems one of those few cases where pen and paper outperform brute force techniques.
+    \item[Single measurements are not enough: ]unless very rare cases, it is necessary to run the algorithm several times in order to produce a sample with statistical significance to work on, as a single measurement is not enough to establish the exact result, giving the large delta caused by the noise. This could of course be improved with error-correction techniques, but rarely to the point when a single execution is enough.
+
+\end{description}
+
+
+In the end, quantum computation and quantum simulation is an exciting field which is evolving rapidly and it is definitely very promising. This was a first and a small attempt to familiarize with it in a real-world scenario and with an open challenge. Even if results are not even near to the actual state of the art, the amount of knowledge acquired during this long journey was definitely worth the effort. 
 
